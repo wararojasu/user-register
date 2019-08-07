@@ -50,7 +50,7 @@ pipeline {
 	      stage('Build ..') { 
 	        steps {
 			    script {
-			       dockerAppImage = docker.build registry
+			       dockerAppImage = docker.build finalNameApp
 			    }
 	        }
 	      }
