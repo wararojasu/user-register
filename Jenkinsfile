@@ -7,12 +7,17 @@ pipeline {
   agent any
 
   stages{
-	stage(''){
+	stage('Build and Test'){
 	   stages {
 	      stage('Build') { 
 	         steps {
 	            sh './gradlew build'
 	         }
+	      }
+	      stage('Test') { 
+	         steps {
+	               sh './gradlew test' 
+	            }
 	      }
        }
        post {
