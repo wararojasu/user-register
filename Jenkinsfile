@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    finalNameApp = "wararojasu/user-register:${env.BUILD_NUMBER}"
+    finalNameApp = "wararojasu/user-register:final"
     dockerAppImage = ''
   }
   
