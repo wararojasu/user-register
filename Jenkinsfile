@@ -7,13 +7,14 @@ pipeline {
   agent any
 
   stages{
-	   
+	stage(''){
+	   stages {
 	      stage('Build') { 
 	         steps {
 	            sh './gradlew build'
 	         }
 	      }
-       
+       }
        post {
           always {
              junit 'build/test-results/test/*.xml'
@@ -36,7 +37,7 @@ pipeline {
           
 		 }		  
        }
-    
+    }
 	stage('Build, Public image to Docker Registry'){
 	   stages {
 	      stage('Build ..') { 
