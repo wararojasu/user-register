@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    finalNameApp = "wararojasu/user-register:final"
+    finalNameApp = "wararojasu/user-register:${env.BUILD_NUMBER}"
     dockerAppImage = ''
   }
   
@@ -41,7 +41,7 @@ pipeline {
 		 }		 
 		 changed {
 		  sh 'echo "This will run only if the state of the Pipeline has changed"'
-          emailext attachmentsPattern: 'build/reports/tests/test/index.html', mimeType: 'text/html', body: '''${SCRIPT, template="groovy-html.template"}''', subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Changed", to: 'wara.rojas.u@gmail.com'		  
+          
 		 }		  
        }
     }
@@ -80,7 +80,7 @@ pipeline {
 		  stage('run-parallel-branches') {
 		    steps {
 			  parallel(
-			    Qa: {
+			    QA: {
 				  sh 'docker run --name container-qa -d -p 8787:8080 wararojasu/wru_gradle:first'
 			    },
 			    Dev: {
