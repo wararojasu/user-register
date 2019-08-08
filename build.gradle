@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'war' 
 apply plugin: 'com.bmuschko.tomcat'
-
+ 
 repositories {
     jcenter()
 }
@@ -34,6 +34,7 @@ buildscript {
         classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
     }
 }
+
 sourceSets {
     main {
         java {
@@ -50,6 +51,6 @@ sourceSets {
 test {
     reports {
         junitXml.enabled = true
-        html.enabled = true
+        html.enabled = true 
     }               
 }
