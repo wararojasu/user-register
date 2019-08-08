@@ -31,7 +31,7 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            url "${artifactory_contextUrl}"
+            url "${jfrog-artifactory-server}"
             credentials {
                 username = "${artifactory_user}"
                 password = "${artifactory_password}"
@@ -44,10 +44,13 @@ buildscript {
  
     dependencies {
         classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
-	classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1'
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.0.1"	
+		classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1'
+		classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.0.1"	
     }
 }
+
+}
+
 sourceSets {
     main {
         java {
@@ -107,7 +110,7 @@ task createPom << {
     }.writeTo("$buildDir/publications/mavenJava/pom-default.xml")
 }
 
-
+//publish - Publishes all publications produced by this project.
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -116,6 +119,8 @@ publishing {
     }
 }
 
+//artifactoryPublish - Deploys artifacts + generated build-info metadata to Artifactory, using project publications.
 artifactoryPublish {
     dependsOn createPom
 }
+
