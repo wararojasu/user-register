@@ -5,14 +5,7 @@ apply plugin: 'org.sonarqube'
 apply plugin: "com.jfrog.artifactory"
 
 repositories {
-    jcenter()
-    maven {
-        url "${jfrog-artifactory-server}" 
-        credentials {              
-                username = "${artifactory_user}"
-                password = "${artifactory_password}"
-        }
-    }	
+    jcenter()	
 }
  
 dependencies {   
