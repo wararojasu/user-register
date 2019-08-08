@@ -28,7 +28,6 @@ buildscript {
  
     dependencies {
         classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
-	classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1'
     }
 }
 sourceSets {
@@ -54,5 +53,4 @@ test {
 apply plugin: 'java'
 apply plugin: 'war' 
 apply plugin: 'com.bmuschko.tomcat'
-apply plugin: 'org.sonarqube'
 
