@@ -85,10 +85,10 @@ pipeline {
 		    steps {
 			  parallel(
 			    QA: {
-				  sh 'docker run --name container-qa -d -p 8787:8080 wararojasu/user-register:${env.BUILD_NUMBER}'
+				  sh 'docker run --name container-qa -d -p 8787:8080 wararojasu/user-register:1'
 			    },
 			    Dev: {
-				  sh 'docker run --name container-dev -d -p 8785:8080 wararojasu/user-register:${env.BUILD_NUMBER}' 
+				  sh 'docker run --name container-dev -d -p 8785:8080 wararojasu/user-register:1' 
 			    }
 			  )
 		    }
