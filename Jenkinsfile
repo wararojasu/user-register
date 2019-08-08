@@ -22,7 +22,7 @@ pipeline {
 		  stage('SonarQube') {
 		     steps {
 			    sh 'echo Sonar Analysis'
-		        './gradlew sonarqube   -Dsonar.projectKey=wararojasu_user-register   -Dsonar.organization=wararojasu   -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login=0c1a2f9ac99bcbfab13788e581bb497b115909aa'			
+		        sh './gradlew sonarqube   -Dsonar.projectKey=wararojasu_user-register   -Dsonar.organization=wararojasu   -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login=0c1a2f9ac99bcbfab13788e581bb497b115909aa'			
 		     }
 		  }		  
 		}
