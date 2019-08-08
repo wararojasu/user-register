@@ -75,7 +75,7 @@ pipeline {
 	        steps {
 			    script {
 				   docker.withRegistry('', 'docker-hub-credentials') {
-					  dockerAppImage = docker.image('wararojasu/wru_gradle:first')
+					  dockerAppImage = docker.image(finalNameApp)
 					  dockerAppImage.pull()
 				  }				   
 			    }
@@ -85,10 +85,10 @@ pipeline {
 		    steps {
 			  parallel(
 			    QA: {
-				  sh 'docker run --name container-qa -d -p 8787:8080 wararojasu/wru_gradle:first'
+				  sh 'docker run --name container-qa -d -p 8787:8080 wararojasu/user-register:${env.BUILD_NUMBER}'
 			    },
 			    Dev: {
-				  sh 'docker run --name container-dev -d -p 8785:8080 wararojasu/wru_gradle:first' 
+				  sh 'docker run --name container-dev -d -p 8785:8080 wararojasu/user-register:${env.BUILD_NUMBER}' 
 			    }
 			  )
 		    }
@@ -99,12 +99,12 @@ pipeline {
 	   stages {
           stage('Checkout external gui test ...') {
             steps {
-				sh 'git clone -b master https://github.com/wararojasu/wru_gradle_gui_test.git' 
+				sh 'git clone -b master https://github.com/wararojasu/user-register-gui-test.git' 
             }
           }	   
 	      stage('Build GUI tes') { 
 	         steps {
-			    sh 'cd wru_gradle_gui_test'
+			    sh 'cd user-register-gui-test'
 	            sh './gradlew build'
 	         }
 	      }
