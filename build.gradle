@@ -45,7 +45,7 @@ buildscript {
     dependencies {
         classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
 	classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.7.1'
-classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.0.1"	
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:3.0.1"	
     }
 }
 sourceSets {
@@ -92,8 +92,8 @@ artifactory {
 task createPom << {
     pom {
         project {
-            groupId 'mypro'
-            artifactId 'mypro'
+            groupId 'user-register'
+            artifactId 'user-register'
             version '1.0.0-SNAPSHOT'
             inceptionYear '2019'
             licenses {
@@ -107,7 +107,7 @@ task createPom << {
     }.writeTo("$buildDir/publications/mavenJava/pom-default.xml")
 }
 
-//publish - Publishes all publications produced by this project.
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -116,8 +116,6 @@ publishing {
     }
 }
 
-//artifactoryPublish - Deploys artifacts + generated build-info metadata to Artifactory, using project publications.
 artifactoryPublish {
     dependsOn createPom
 }
-
