@@ -8,8 +8,9 @@ pipeline {
 
   stages{
 	stage('Build, Test and Code Quality'){
-	   stages {
-        parallel {	   
+	parallel{
+	   //stages {
+	   
 	      stage('Build') { 
 	         steps {
 	            sh './gradlew build'
@@ -20,14 +21,8 @@ pipeline {
 	               sh './gradlew test' 
 	            }
 	      }*/
-		  stage('Analyzing Code Quality with SonarQube') {
-		     steps {
-			    sh 'echo Sonar Analysis'
-		        sh './gradlew sonarqube   -Dsonar.projectKey=wararojasu_user-register   -Dsonar.organization=wararojasu   -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login=0c1a2f9ac99bcbfab13788e581bb497b115909aa'			
-		     }
-		  }
-		}		  
-		}
+	  
+		//}
        post {
           always {
              junit 'build/test-results/test/*.xml'
@@ -68,6 +63,15 @@ pipeline {
           
 		 }		  
        }
+	   
+		  stage('Analyzing Code Quality with SonarQube') {
+		     steps {
+			    sh 'echo Sonar Analysis'
+		        sh './gradlew sonarqube   -Dsonar.projectKey=wararojasu_user-register   -Dsonar.organization=wararojasu   -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login=0c1a2f9ac99bcbfab13788e581bb497b115909aa'			
+		     }
+		  }	
+		  
+	   }
     }
 	stage('Build, Public image to Docker Registry'){
 	   stages {
