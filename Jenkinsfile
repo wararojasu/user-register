@@ -7,8 +7,9 @@ pipeline {
   agent any
 
   stages{
-	stage('Build and Test'){
+	stage('Build, Test and Code Quality'){
 	   stages {
+        parallel {	   
 	      stage('Build') { 
 	         steps {
 	            sh './gradlew build'
@@ -24,7 +25,8 @@ pipeline {
 			    sh 'echo Sonar Analysis'
 		        sh './gradlew sonarqube   -Dsonar.projectKey=wararojasu_user-register   -Dsonar.organization=wararojasu   -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login=0c1a2f9ac99bcbfab13788e581bb497b115909aa'			
 		     }
-		  }		  
+		  }
+		}		  
 		}
        post {
           always {
