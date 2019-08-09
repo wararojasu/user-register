@@ -30,6 +30,24 @@ pipeline {
           always {
              junit 'build/test-results/test/*.xml'
              archiveArtifacts artifacts: 'build/libs/*.war', fingerprint: true
+		  
+        // publish html
+
+        publishHTML target: [
+
+            allowMissing: false,
+
+            alwaysLinkToLastBuild: false,
+
+            keepAll: true,
+
+            reportDir: 'build/reports/tests/test/',
+
+            reportFiles: 'index.html',
+
+            reportName: 'RCov Report Unit Test'
+
+          ]		  
           }
 		 success {
 		  sh 'echo "This will run only if successful"'
@@ -106,7 +124,7 @@ pipeline {
 	         steps {
 			 sh 'pwd'
 			 sh 'ls -l'
-			    sh 'cd user-register-gui-test'
+			    sh 'cd user-register-gui-test/ && ./gradlew build'
 			 sh 'pwd'
 			 sh 'ls -l'			 
 	            sh './gradlew build'
@@ -116,7 +134,7 @@ pipeline {
 	         steps {
 			 sh 'pwd'
 			sh 'ls -l'
-	               sh './gradlew test' 
+	               sh 'cd user-register-gui-test/ && ./gradleww test' 
 			 sh 'pwd'
 			 sh 'ls -l'			 
 	            }
@@ -125,7 +143,7 @@ pipeline {
        post {
           always {
 		  sh 'pwd'
-             junit 'build/test-results/test/*.xml'
+             junit 'user-register-gui-test/build/test-results/test/*.xml'
 		  
 
         // publish html
@@ -138,11 +156,11 @@ pipeline {
 
             keepAll: true,
 
-            reportDir: 'build/reports/tests/test/',
+            reportDir: 'user-register-gui-test/build/reports/tests/test/',
 
             reportFiles: 'index.html',
 
-            reportName: 'RCov Report'
+            reportName: 'RCov Report GUI Automation'
 
           ]
 		  
