@@ -2,9 +2,13 @@ apply plugin: 'java'
 apply plugin: 'war' 
 apply plugin: 'com.bmuschko.tomcat'
 apply plugin: 'org.sonarqube'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+apply plugin: "com.jfrog.artifactory"
 
 repositories {
     jcenter()
+    add buildscript.repositories.getByName("maven-main-cache")	
 }
  
 dependencies {   
@@ -14,7 +18,12 @@ dependencies {
     providedCompile "javax.servlet:javax.servlet-api:3.1.0"      
      
 }
+ 
+/** for package */
+version = '1.0.0-SNAPSHOT'
+group = 'user-register'
 
+ 
 dependencies {
     def tomcatVersion = '7.0.59'
     
@@ -28,6 +37,17 @@ buildscript {
  
     repositories {
         jcenter()
+        maven {
+            url "${artifactory_contextUrl}"
+            credentials {
+                username = "${artifactory_user}"
+                password = "${artifactory_password}"
+            }
+            name = "maven-main-cache"
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"		
+    }
  
     dependencies {
         classpath 'com.bmuschko:gradle-tomcat-plugin:2.2.2'
@@ -56,4 +76,58 @@ test {
         junitXml.enabled = true
         html.enabled = true
     }               
+}
+
+//configuration
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"
+    publish {
+        repository {
+            repoKey = 'libs-snapshot-local'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            //maven = true
+        }       
+        defaults {
+            publications ('mavenJava')
+            publishArtifacts = true
+            // Properties to be attached to the published artifacts.
+            properties = ['qa.level': 'basic', 'dev.team' : 'core']
+            publishPom = false // Publish generated POM files to Artifactory (true by default)
+        }
+    }
+}
+
+task createPom{
+    doLast {
+        pom {
+            project {
+                groupId 'user-register'
+                artifactId 'user-register'
+                version '1.0.0-SNAPSHOT'
+                inceptionYear '2019'
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
+                }
+            }
+        }.writeTo("$buildDir/publications/mavenJava/pom-default.xml")
+    }    
+}
+
+//publish - Publishes all publications produced by this project.
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+       }
+    }
+}
+
+//artifactoryPublish - Deploys artifacts + generated build-info metadata to Artifactory, using project publications.
+artifactoryPublish {
+    dependsOn createPom
 }
