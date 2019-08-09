@@ -1,11 +1,14 @@
-grapply plugin: 'java'
+apply plugin: 'java'
 apply plugin: 'war' 
 apply plugin: 'com.bmuschko.tomcat'
 apply plugin: 'org.sonarqube'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: "com.jfrog.artifactory"
 
 repositories {
-    jcenter()	
+    jcenter()
+    add buildscript.repositories.getByName("maven-main-cache")	
 }
  
 dependencies {   
@@ -16,6 +19,10 @@ dependencies {
      
 }
  
+/** for package */
+version = '1.0.0-SNAPSHOT'
+group = 'user-register'
+
  
 dependencies {
     def tomcatVersion = '7.0.59'
@@ -31,7 +38,7 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            url "${jfrog-artifactory-server}"
+            url "${artifactory_contextUrl}"
             credentials {
                 username = "${artifactory_user}"
                 password = "${artifactory_password}"
@@ -73,14 +80,13 @@ test {
 
 //configuration
 artifactory {
-    contextUrl = "${jfrog-artifactory-server}"
+    contextUrl = "${artifactory_contextUrl}"
     publish {
         repository {
             repoKey = 'libs-snapshot-local'
             username = "${artifactory_user}"
             password = "${artifactory_password}"
-            maven = true
-
+            //maven = true
         }       
         defaults {
             publications ('mavenJava')
@@ -92,22 +98,24 @@ artifactory {
     }
 }
 
-task createPom << {
-    pom {
-        project {
-            groupId 'user-register'
-            artifactId 'user-register'
-            version '1.0.0-SNAPSHOT'
-            inceptionYear '2019'
-            licenses {
-                license {
-                    name 'The Apache Software License, Version 2.0'
-                    url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-                    distribution 'repo'
+task createPom{
+    doLast {
+        pom {
+            project {
+                groupId 'user-register'
+                artifactId 'user-register'
+                version '1.0.0-SNAPSHOT'
+                inceptionYear '2019'
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        distribution 'repo'
+                    }
                 }
             }
-        }
-    }.writeTo("$buildDir/publications/mavenJava/pom-default.xml")
+        }.writeTo("$buildDir/publications/mavenJava/pom-default.xml")
+    }    
 }
 
 //publish - Publishes all publications produced by this project.
