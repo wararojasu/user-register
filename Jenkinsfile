@@ -15,7 +15,7 @@ pipeline {
 	         steps {
 	            sh './gradlew build'
 	         }
-	      }
+	      
 	      /*stage('Test') { 
 	         steps {
 	               sh './gradlew test' 
@@ -63,7 +63,7 @@ pipeline {
           
 		 }		  
        }
-	   
+	   }
 		  stage('Analyzing Code Quality with SonarQube') {
 		     steps {
 			    sh 'echo Sonar Analysis'
