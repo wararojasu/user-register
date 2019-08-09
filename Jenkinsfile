@@ -99,7 +99,7 @@ pipeline {
 			    }
 	        }
 	      }
-		  stage('run-parallel-branches') {
+		  stage('Deploy Environments') {
 		    steps {
 			  parallel(
 			    QA: {
