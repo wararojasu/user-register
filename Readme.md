@@ -21,7 +21,7 @@ For Testing only.
 **For Developing**.<br /><br />
 Get the app.
 ```
-git clone -b develop https://github.com/awt-03/wru_gradle.git
+git clone -b develop https://github.com/awt-03/user-register.git
 ```
 Update the dependencies for the project.
 - Open the App with Eclise IDE.
@@ -34,7 +34,7 @@ Update the dependencies for the project.
 **For testing using an ide**.<br /><br />
 Get the app.
 ```
-git clone -b develop https://github.com/awt-03/wru_gradle.git
+git clone -b develop https://github.com/awt-03/user-register.git
 ```
 Update the dependencies for the project.
 - Open the App with Eclise IDE.
@@ -51,17 +51,17 @@ Build the application.<br />
 - Then the application is going to be builded. Wait ultil it was done.
 - Finally to Testing. Go to the browser that you like and type.
 ```
-http://localhost:8080/wru_gradle/index.jsp
+http://localhost:8080/user-register/index.jsp
 ```
 
 **For testing without using an ide**. <br /><br />
 Get the app.
 ```
-git clone -b develop https://github.com/awt-03/wru_gradle.git
+git clone -b develop https://github.com/awt-03/user-register.git
 ```
 - Go to the project folder
 ```
-cd wru_gradle
+cd user-register
 ```
 Update the dependencies and Build the application.
 ```
@@ -69,20 +69,20 @@ Update the dependencies and Build the application.
 ```
 - Create an image with the builded application.
 ```
- sudo docker build -t wru_gradle .
+ sudo docker build -t user-register .
 ```
 - Deploy the application created as an image.
 ```
- sudo docker run -d -it -p 8787:8080 wru_gradle
+ sudo docker run -d -it -p 8787:8080 user-register
 ```
 - Finally for Testing. Go to the browser that you like and type.
 ```
-http://localhost:8080/wru_gradle/index.jsp
+http://localhost:8080/user-register/index.jsp
 ```
 ## Authors
 
-* **Wara Rojas** - *Working on my project* - [Git Hub Repo](https://github.com/awt-03/wru_gradle.git)
-See also [Gui Automated test for this application](https://github.com/awt-03/wru_gradle_gui_test.git)
+* **Wara Rojas** - *Working on my project* - [Git Hub Repo](https://github.com/awt-03/user-register.git)
+See also [Gui Automated test for this application](https://github.com/awt-03/user-register_gui_test.git)
 
 ## License
 
