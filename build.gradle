@@ -131,4 +131,3 @@ publishing {
 artifactoryPublish {
     dependsOn createPom
 }
-
