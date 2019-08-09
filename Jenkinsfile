@@ -171,7 +171,7 @@ pipeline {
 		 }
 		 failure {
 		  sh 'echo "This will run only if failed"'
-		  emailext attachmentsPattern: 'build/reports/tests/test/index.html', mimeType: 'text/html', body: '''${SCRIPT, template="groovy-html.template"}''', subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", to: 'wara.rojas.u@gmail.com, wara.rojas@fundacion-jala.org, Carmen.Villcazani@jalasoft.com'
+		  emailext attachmentsPattern: 'build/reports/tests/test/index.html', mimeType: 'text/html', body: '''${SCRIPT, template="groovy-html.template"}''', subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", to: 'wara.rojas.u@gmail.com', cc: 'wara.rojas@fundacion-jala.org'
 		 }
 		 unstable {
 		  sh 'echo "This will run only if the run was marked as unstable"'
