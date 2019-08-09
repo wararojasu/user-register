@@ -104,18 +104,21 @@ pipeline {
           }	   
 	      stage('Build GUI tes') { 
 	         steps {
+			 sh 'pwd'
 			    sh 'cd user-register-gui-test'
 	            sh './gradlew build'
 	         }
 	      }
 	      stage('Test GUI test') { 
 	         steps {
+			 sh 'pwd'
 	               sh './gradlew test' 
 	            }
 	      }
        }
        post {
           always {
+		  sh 'pwd'
              junit 'build/test-results/test/*.xml'
 		  
 
