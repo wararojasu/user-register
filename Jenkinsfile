@@ -105,14 +105,20 @@ pipeline {
 	      stage('Build GUI tes') { 
 	         steps {
 			 sh 'pwd'
+			 sh 'ls -l'
 			    sh 'cd user-register-gui-test'
+			 sh 'pwd'
+			 sh 'ls -l'			 
 	            sh './gradlew build'
 	         }
 	      }
 	      stage('Test GUI test') { 
 	         steps {
 			 sh 'pwd'
+			sh 'ls -l'
 	               sh './gradlew test' 
+			 sh 'pwd'
+			 sh 'ls -l'			 
 	            }
 	      }
        }
