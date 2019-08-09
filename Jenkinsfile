@@ -59,7 +59,7 @@ pipeline {
 		 }
 		 unstable {
 		  sh 'echo "This will run only if the run was marked as unstable"'
-          emailext attachmentsPattern: 'build/reports/tests/test/index.html', mimeType: 'text/html', body: '''${SCRIPT, template="groovy-html.template"}''', subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Unstable", to: 'wara.rojas.u@gmail.com'		  
+          //emailext attachmentsPattern: 'build/reports/tests/test/index.html', mimeType: 'text/html', body: '''${SCRIPT, template="groovy-html.template"}''', subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Unstable", to: 'wara.rojas.u@gmail.com'		  
 		 }		 
 		 changed {
 		  sh 'echo "This will run only if the state of the Pipeline has changed"'
@@ -120,7 +120,7 @@ pipeline {
 				sh 'git clone -b master https://github.com/wararojasu/user-register-gui-test.git' 
             }
           }	   
-	      stage('Build GUI tes') { 
+	      stage('Build GUI test') { 
 	         steps {
 			 sh 'pwd'
 			 sh 'ls -l'
@@ -130,7 +130,7 @@ pipeline {
 	            sh './gradlew build'
 	         }
 	      }
-	      stage('Test GUI test') { 
+	      /*stage('Test GUI test') { 
 	         steps {
 			 sh 'pwd'
 			sh 'ls -l'
@@ -138,7 +138,7 @@ pipeline {
 			 sh 'pwd'
 			 sh 'ls -l'			 
 	            }
-	      }
+	      }*/
        }
        post {
           always {
