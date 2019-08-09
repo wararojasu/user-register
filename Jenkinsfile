@@ -14,12 +14,12 @@ pipeline {
 	            sh './gradlew build'
 	         }
 	      }
-	      stage('Test') { 
+	      /*stage('Test') { 
 	         steps {
 	               sh './gradlew test' 
 	            }
-	      }
-		  stage('SonarQube') {
+	      }*/
+		  stage('Analyzing Code Quality with SonarQube') {
 		     steps {
 			    sh 'echo Sonar Analysis'
 		        sh './gradlew sonarqube   -Dsonar.projectKey=wararojasu_user-register   -Dsonar.organization=wararojasu   -Dsonar.host.url=https://sonarcloud.io   -Dsonar.login=0c1a2f9ac99bcbfab13788e581bb497b115909aa'			
@@ -122,11 +122,7 @@ pipeline {
           }	   
 	      stage('Build GUI test') { 
 	         steps {
-			 sh 'pwd'
-			 sh 'ls -l'
-			    sh 'cd user-register-gui-test/ && ./gradlew build'
-			 sh 'pwd'
-			 sh 'ls -l'			 
+			    sh 'cd user-register-gui-test/ && ./gradlew build'			 
 	            sh './gradlew build'
 	         }
 	      }
@@ -142,7 +138,6 @@ pipeline {
        }
        post {
           always {
-		  sh 'pwd'
              junit 'user-register-gui-test/build/test-results/test/*.xml'
 		  
 
@@ -171,7 +166,7 @@ pipeline {
 		 }
 		 failure {
 		  sh 'echo "This will run only if failed"'
-		  emailext attachmentsPattern: 'build/reports/tests/test/index.html', mimeType: 'text/html', body: '''${SCRIPT, template="groovy-html.template"}''', subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", to: 'wara.rojas.u@gmail.com', cc: 'wara.rojas@fundacion-jala.org'
+		  emailext attachmentsPattern: 'build/reports/tests/test/index.html', mimeType: 'text/html', body: '''${SCRIPT, template="groovy-html.template"}''', subject: "${env.JOB_NAME} - Build # ${env.BUILD_NUMBER} - Failed", to: 'wara.rojas.u@gmail.com'
 		 }
 		 unstable {
 		  sh 'echo "This will run only if the run was marked as unstable"'
