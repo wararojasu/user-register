@@ -45,7 +45,7 @@ pipeline {
 
             reportFiles: 'index.html',
 
-            reportName: 'RCov Report Unit Test'
+            reportName: 'Report Unit Test'
 
           ]		  
           }
@@ -160,7 +160,7 @@ pipeline {
 
             reportFiles: 'index.html',
 
-            reportName: 'RCov Report GUI Automation'
+            reportName: 'Report GUI Automation'
 
           ]
 		  
